@@ -6,7 +6,7 @@
 /*   By: hepiment <hepiment@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 18:18:08 by hepiment          #+#    #+#             */
-/*   Updated: 2022/07/05 18:34:04 by hepiment         ###   ########.fr       */
+/*   Updated: 2022/07/07 02:42:31 by hepiment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,22 @@ int	to_hex(unsigned long long nb, char flag)
 {
 	char				*str;
 	int					size;
-	unsigned long int	mod;
+	unsigned long int	hex;
 
 	size = find_size(nb);
 	if (flag == 'p')
-		write(1, "0x", 2);
+	{
+		if (!nb)
+			return (ft_printf("(nil)") - 2);
+		ft_printf("0x");
+	}
 	if (nb == 0)
 		return (ft_printf("0"));
 	str = calloc(sizeof(char), (size + 1));
 	while (nb != 0)
 	{
-		mod = (nb % 16);
-		str[--size] = to_ascii(mod, flag);
+		hex = (nb % 16);
+		str[--size] = to_ascii(hex, flag);
 		nb = nb / 16;
 	}
 	size = ft_printf("%s", str);
